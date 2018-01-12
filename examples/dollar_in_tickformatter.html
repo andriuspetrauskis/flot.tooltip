@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
+    <!--[if lte IE 8]><script src="../js/excanvas.min.js"></script><![endif]-->
 	<script src="js/jquery.flot.js"></script>
 	<script src="../js/jquery.flot.tooltip.js"></script>
 	
@@ -28,25 +28,11 @@
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		console.log("document ready");
-		var offset = 0;
-		$('#replot').bind('click', function(){
-			offset = 0;
-			var intervalId = setInterval(function(){
-				plot();
-				offset = offset + 0.1;
-				if (offset > 10){
-					clearInterval(intervalId);
-				}
-			});
-		});
+		
 		plot();
+		
 		function plot(){
-			var sin = [], cos = [];
-			for (var i = 0; i < 12; i += 0.2) {
-				sin.push([i, Math.sin(i + offset)]);
-				cos.push([i, Math.cos(i + offset)]);
-			}
+			var values = [ [0.75, 123], [1, 550], [2.823695, 320], [3, 700],[4,17000],[5,300] ]
 		
 			var options = {
 				series: {
@@ -56,10 +42,14 @@
 				grid: {
 					hoverable: true //IMPORTANT! this is needed for tooltip to work
 				},
-				yaxis: { min: -1.2, max: 1.2 },
+				yaxis:{
+                                    tickFormatter: function(val, axis) {
+					  return '$' + val.toLocaleString()+"$";
+				    },
+				},
 				tooltip: {
 					show: true,
-					content: "'%s' of %x.1 is %y.4",
+					content: "%s of %x.2 is %y",
 					shifts: {
 						x: -60,
 						y: 25
@@ -68,7 +58,7 @@
 			};
 		
 			var plotObj = $.plot( $("#placeholder"),
-				[ { data: sin, label: "sin(x)"}, { data: cos, label: "cos(x)" } ],
+				[ { data: values, label: "Series 1"}],
 				options );
 		}
 	});

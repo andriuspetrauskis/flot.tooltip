@@ -10,8 +10,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <!--[if lte IE 8]><script src="../js/excanvas.min.js"></script><![endif]-->
-	<script src="../js/jquery.flot.js"></script>
+    <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
+	<script src="js/jquery.flot.js"></script>
+	<script src="js/jquery.flot.time.js"></script>
 	<script src="../js/jquery.flot.tooltip.min.js"></script>
 	
 	<style type="text/css">
@@ -34,9 +35,9 @@
 
 		var options = {
 			colors: ["#111"],
-			tooltip: true,
-			tooltipOpts: {
-				content: "<h4>%s</h4><ul><li>X is %x</li><li>Y is %y</li></ul>",
+			tooltip: {
+				show: true,
+				content: '<div style="background-color: rgba(255,255,255,0.75); border: 1px solid #000; padding: .25em"><h4 style>%s</h4><ul><li>X is %x</li><li>Y is %y</li></ul></div>',
 				xDateFormat: "%y-%0m-%0d %H:%M:%S",
 				shifts: {
 					x: 10,
